@@ -1,0 +1,43 @@
+﻿@model MVCFundamentals.Models.Product
+@{
+    ViewBag.Title = "ProductDetail";
+}
+
+<h2>@Model.ProductName ürün detayı</h2>
+<h4>Kategorisi : @Model.Category.CategoryName</h4>
+<h4>Fiyatı : @($"{Model.UnitPrice:c2}")</h4>
+<h4>Satışta Mı : @(Model.Discontinued ? "Satışta Değil" : "Satışta")</h4>
+@{
+    var siparisler = Model.Order_Details.ToList();
+    int i = 0;
+    int radius = 20;
+}
+<ul class="list-group">
+    @foreach (var detail in siparisler)
+    {
+        i++;
+        <li class="list-group-item">
+            <div class="@(i%2==0 ? "text-success tek" : "text-danger cift")">@detail.Order.OrderID</div>
+            <ul class="list-group">
+                <li class="list-group-item">Müşteri: @detail.Order.Customer.CompanyName</li>
+                <li class="list-group-item">Çalışan: @detail.Order.Employee.FirstName @detail.Order.Employee.LastName</li>
+                <li class="list-group-item">Kargo Firması: @detail.Order.Shipper.CompanyName</li>
+                <li class="list-group-item">Sipariş Tarihi: @($"{detail.Order.OrderDate:D}")</li>
+                <li class="list-group-item">Toplam adet: @detail.Quantity</li>
+                <li class="list-group-item">Birim Fiyat: @($"{detail.UnitPrice:c2}") </li>
+                <li class="list-group-item">İskonto: % @(detail.Discount * 100) </li>
+                <li class="list-group-item">Toplam @($"{detail.UnitPrice * detail.Quantity * Convert.ToDecimal(1 - detail.Discount):c2}")</li>
+            </ul>
+        </li>
+    }
+</ul>
+<style>
+    .tek {
+        background-color: #f0fff0;
+        border-radius: @(radius)px;
+    }
+    .cift {
+        background-color: #ffdab9;
+        border-radius: @(radius)px;
+    }
+</style>
