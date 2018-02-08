@@ -7,7 +7,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs/jqc-1.12.3/dt-1.10.16/af-2.2.2/b-1.5.1/cr-1.4.1/fc-3.2.4/fh-3.1.3/r-2.2.1/sc-1.4.4/datatables.min.js"></script>
 
 <h2>Toplam Çalışan @Model.Count</h2>
-
+<a href="@Url.Action("Add","Employee")" class="btn btn-success btn-lg">Yeni Çalışan Ekle</a>
 <div class="row">
     <div class="col-md-12">
         <table id="datatable" class="table table-hover table-striped table-bordered">
@@ -35,7 +35,12 @@
                         <td>@Model[i].City</td>
                         <td>@($"{Model[i].HireDate:D}")</td>
                         <td>
-                            <a href="#" class="btn btn-info btn-block">Detay</a>
+                            <a href="@Url.Action("Detail","Employee",new {id = Model[i].EmployeeID})" class="btn btn-info btn-block">Detay</a>
+                            <a href="@Url.Action("Update","Employee",new {id = Model[i].EmployeeID})" class="btn btn-warning btn-block">Güncelle</a>
+                            @if (Model[i].Employees1.Count == 0 && Model[i].Orders.Count == 0)
+                            {
+                                <a href="@Url.Action("Delete","Employee",new {id = Model[i].EmployeeID})" class="btn btn-danger btn-block">Sil</a>
+                            }
                         </td>
                     </tr>
                 }

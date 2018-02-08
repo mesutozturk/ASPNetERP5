@@ -256,6 +256,10 @@
     <Content Include="Views\Category\Update.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\Detail.cshtml" />
+    <Content Include="Views\Employee\Add.cshtml" />
+    <Content Include="Views\Employee\Update.cshtml" />
+    <Content Include="Views\Employee\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
