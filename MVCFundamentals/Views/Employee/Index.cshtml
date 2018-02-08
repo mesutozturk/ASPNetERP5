@@ -1,0 +1,67 @@
+﻿@model List<MVCFundamentals.Models.Employee>
+@{
+    ViewBag.Title = "Index";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jqc-1.12.3/dt-1.10.16/af-2.2.2/b-1.5.1/cr-1.4.1/fc-3.2.4/fh-3.1.3/r-2.2.1/sc-1.4.4/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jqc-1.12.3/dt-1.10.16/af-2.2.2/b-1.5.1/cr-1.4.1/fc-3.2.4/fh-3.1.3/r-2.2.1/sc-1.4.4/datatables.min.js"></script>
+
+<h2>Toplam Çalışan @Model.Count</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="datatable" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ünvan</th>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Görev</th>
+                    <th>Şehir</th>
+                    <th>İşe Giriş Tarihi</th>
+                    <th>Düzenle</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@Model[i].TitleOfCourtesy</td>
+                        <td>@Model[i].FirstName</td>
+                        <td>@Model[i].LastName</td>
+                        <td>@Model[i].Title</td>
+                        <td>@Model[i].City</td>
+                        <td>@($"{Model[i].HireDate:D}")</td>
+                        <td>
+                            <a href="#" class="btn btn-info btn-block">Detay</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $("#datatable").DataTable({
+        responsive: true,
+        language: {
+            "lengthMenu": "Bir sayfada _MENU_ Kayıt Görüntüle",
+            "zeroRecords": "Aradığınız kriterde kayıt bulunamadı...",
+            "info": "Gösterilen Sayfa _PAGE_ / _PAGES_",
+            "infoEmpty": "Kayıt Bulunmamaktadır",
+            "infoFiltered": "(Toplam _MAX_ kayıt aranıyor)",
+            "search": "Arama",
+            "Previous": "Önceki",
+            "Next": "Sonraki",
+            "paginate": {
+                "first": "ilk",
+                "last": "son",
+                "next": "Sonraki",
+                "previous": "Önceki"
+            }
+        }
+    });
+</script>
