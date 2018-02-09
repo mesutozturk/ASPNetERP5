@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Ana Sayfa";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@section stil
+{
+    <style>
+        h2 {
+            color: brown;
+        }
+    </style>
+}
+
+<h2>@ViewBag.mesaj</h2>
+
+@section script
+{
+    <script>
+        $("h2").click(function () {
+            alert("hahaha");
+        });
+    </script>
+}

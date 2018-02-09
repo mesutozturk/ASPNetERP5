@@ -1,0 +1,17 @@
+﻿@using LayoutKullanimi.Models
+@model List<Product>
+<div class="col-md-12 header">
+    Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
+    @Model.Count
+</div>
+
+@{
+    var db = new NorthwindEntities();
+    var kategoriler = db.Categories.ToList();
+}
+<ul>
+    @foreach (var item in kategoriler)
+    {
+        <li>@item.CategoryName</li>
+    }
+</ul>

@@ -5,6 +5,16 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCFundamentals", "MVCFundamentals\MVCFundamentals.csproj", "{1AA7E57C-F229-4A0A-A425-378F70448DA4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 MVC Giris", "01 MVC Giris", "{02C28EDE-A827-4A8E-912E-06C18925976B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayoutKullanimi", "LayoutKullanimi\LayoutKullanimi.csproj", "{820CBD61-E34D-4CCC-8BB2-4836A67C3321}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Tema Giydirme", "02 Tema Giydirme", "{741EE7D3-5577-4871-97E3-F99939ED91F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminTema", "AdminTema\AdminTema.csproj", "{15EF2872-122C-4013-ACF2-D640DBEE606D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthAdmin", "NorthAdmin\NorthAdmin.csproj", "{E55CCDA6-28E9-4D28-841A-88883CA1FF02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +25,27 @@ Global
 		{1AA7E57C-F229-4A0A-A425-378F70448DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AA7E57C-F229-4A0A-A425-378F70448DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AA7E57C-F229-4A0A-A425-378F70448DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{820CBD61-E34D-4CCC-8BB2-4836A67C3321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{820CBD61-E34D-4CCC-8BB2-4836A67C3321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{820CBD61-E34D-4CCC-8BB2-4836A67C3321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{820CBD61-E34D-4CCC-8BB2-4836A67C3321}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15EF2872-122C-4013-ACF2-D640DBEE606D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15EF2872-122C-4013-ACF2-D640DBEE606D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15EF2872-122C-4013-ACF2-D640DBEE606D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15EF2872-122C-4013-ACF2-D640DBEE606D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E55CCDA6-28E9-4D28-841A-88883CA1FF02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E55CCDA6-28E9-4D28-841A-88883CA1FF02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E55CCDA6-28E9-4D28-841A-88883CA1FF02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E55CCDA6-28E9-4D28-841A-88883CA1FF02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1AA7E57C-F229-4A0A-A425-378F70448DA4} = {02C28EDE-A827-4A8E-912E-06C18925976B}
+		{820CBD61-E34D-4CCC-8BB2-4836A67C3321} = {02C28EDE-A827-4A8E-912E-06C18925976B}
+		{15EF2872-122C-4013-ACF2-D640DBEE606D} = {741EE7D3-5577-4871-97E3-F99939ED91F5}
+		{E55CCDA6-28E9-4D28-841A-88883CA1FF02} = {741EE7D3-5577-4871-97E3-F99939ED91F5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98ACB6F9-EFC3-4E28-BAF8-91DADD56B973}

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    @RenderSection("stil", false)
+</head>
+<body>
+    <div class="row">
+        @{
+            Html.RenderAction("HeaderPartialResult", "Home");
+        }
+    </div>
+    <div class="container middle">
+        @*Kodlar buraya gelecek*@
+        @RenderBody()
+        @*kodlar buraya gelecek*@
+    </div>
+    <div class="row">
+        <div class="col-md-12 footer">
+            Justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante fusce non varius purus aenean nec magna felis fusce vestibulum velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis.
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    @RenderSection("script", false)
+</body>
+</html>
