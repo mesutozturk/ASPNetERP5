@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCFundamentals", "MVCFundamentals\MVCFundamentals.csproj", "{1AA7E57C-F229-4A0A-A425-378F70448DA4}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminTema", "AdminTema\AdminTema.csproj", "{15EF2872-122C-4013-ACF2-D640DBEE606D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthAdmin", "NorthAdmin\NorthAdmin.csproj", "{E55CCDA6-28E9-4D28-841A-88883CA1FF02}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Angular JS", "03 Angular JS", "{DF17A029-4FE2-4D0A-B7E6-99F444779BCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SepetUygulamasi", "SepetUygulamasi\SepetUygulamasi.csproj", "{53C3F4D0-1182-49F4-9E4D-5DB6546FC1DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,10 @@ Global
 		{E55CCDA6-28E9-4D28-841A-88883CA1FF02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E55CCDA6-28E9-4D28-841A-88883CA1FF02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E55CCDA6-28E9-4D28-841A-88883CA1FF02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C3F4D0-1182-49F4-9E4D-5DB6546FC1DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C3F4D0-1182-49F4-9E4D-5DB6546FC1DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C3F4D0-1182-49F4-9E4D-5DB6546FC1DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C3F4D0-1182-49F4-9E4D-5DB6546FC1DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +54,7 @@ Global
 		{820CBD61-E34D-4CCC-8BB2-4836A67C3321} = {02C28EDE-A827-4A8E-912E-06C18925976B}
 		{15EF2872-122C-4013-ACF2-D640DBEE606D} = {741EE7D3-5577-4871-97E3-F99939ED91F5}
 		{E55CCDA6-28E9-4D28-841A-88883CA1FF02} = {741EE7D3-5577-4871-97E3-F99939ED91F5}
+		{53C3F4D0-1182-49F4-9E4D-5DB6546FC1DA} = {DF17A029-4FE2-4D0A-B7E6-99F444779BCB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98ACB6F9-EFC3-4E28-BAF8-91DADD56B973}

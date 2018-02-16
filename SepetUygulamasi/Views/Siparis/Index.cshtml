@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="northApp">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>North Sepet</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/app.js"></script>
+</head>
+<body>
+    <div class="row" ng-controller="SiparisCtrl">
+        <div class="col-sm-6">
+            <input type="text" ng-model="ara" class="form-control" />
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Ürün Adı</th>
+                        <th>Kategori</th>
+                        <th>Fiyat</th>
+                        <th>Stok</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key,item) in urunler | filter:ara">
+                        <td>{{key+1}}</td>
+                        <td>{{item.ProductName}}</td>
+                        <td>{{item.CategoryName}}</td>
+                        <td><strong>{{item.UnitPrice}} ₺</strong></td>
+                        <td><em>{{item.UnitsInStock}}</em></td>
+                        <td>
+                            <input type="button" class="btn btn-success btn-block" value="Sepete Ekle" ng-click="sepeteekle(item)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <div ng-if="sepet.length!=0">
+                <ul>
+                    <li ng-repeat="item in sepet" ng-class="{ 'text-success': $even, 'text-danger': $odd }">
+                        {{item.ProductName}} - {{item.Quantity}} x {{item.UnitPrice}} = <strong>{{item.Quantity*item.UnitPrice}} ₺</strong>
+                    </li>
+                    <li><strong>Toplam: {{toplam}} ₺</strong></li>
+                </ul>
+                <input type="button" value="Sepeti Onayla" class="btn btn-danger" ng-click="sepetionayla()" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

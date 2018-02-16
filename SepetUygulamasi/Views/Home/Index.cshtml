@@ -1,0 +1,104 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="sepetApp">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/angular-route.js"></script>
+    <script>
+        var app = angular.module("sepetApp", ["ngRoute"]);  //sepetApp c# daki proje adına denk geliyor. Dependency Injection da c# daki referans alanına benzemektedir.
+
+        app.controller("SepetCtrl", function ($scope, $http) { //C# daki using alanı
+            $scope.urunler = [
+                {
+                    id: 1,
+                    ad: "Pantolon",
+                    fiyat: 185
+                }, {
+                    id: 2,
+                    ad: "Ceket",
+                    fiyat: 325
+                }, {
+                    id: 3,
+                    ad: "Etek",
+                    fiyat: 75
+                }, {
+                    id: 4,
+                    ad: "Şapka",
+                    fiyat: 25
+                }
+            ];
+            $scope.sepet = [];
+            $scope.toplam = 0;
+            $scope.sepeteekle = function (urun) {
+                if ($scope.sepet.length === 0) {
+                    urun.adet = 1;
+                    $scope.sepet.push(urun);
+                } else {
+                    var varmi = false;
+                    for (var i = 0; i < $scope.sepet.length; i++) {
+                        if ($scope.sepet[i].id === urun.id) {
+                            varmi = true;
+                            $scope.sepet[i].adet++;
+                            break;
+                        }
+                    }
+                    if (!varmi) {
+                        urun.adet = 1;
+                        $scope.sepet.push(urun);
+                    }
+                }
+                sepethesapla();
+            }
+
+            function sepethesapla() {
+                $scope.toplam = 0;
+                for (var i = 0; i < $scope.sepet.length; i++) {
+                    $scope.toplam += $scope.sepet[i].adet * $scope.sepet[i].fiyat;
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="SepetCtrl">
+        <input type="text" ng-model="ara" />
+        <div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Ürün Adı</th>
+                        <th>Fiyat</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key,item) in urunler | filter:ara">
+                        <td>{{key+1}}</td>
+                        <td>{{item.ad}}</td>
+                        <td><strong>{{item.fiyat}} ₺</strong></td>
+                        <td>
+                            <input type="button" class="btn btn-success btn-block" value="Sepete Ekle" ng-click="sepeteekle(item)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul>
+                <li ng-repeat="(key,item) in sepet | filter:ara">
+                    {{item.ad}}  - {{item.adet}} x {{item.fiyat}} = <strong>{{item.fiyat*item.adet}} ₺</strong>
+                </li>
+                <li>Genel Toplam : <strong><u>{{toplam}}</u> ₺</strong></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
