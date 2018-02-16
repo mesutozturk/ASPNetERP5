@@ -45,6 +45,20 @@ app.controller("SiparisCtrl",
             sepethesapla();
         }
 
+        $scope.sepetionayla = function () {
+            $http({
+                url: '../Siparis/Urunler',
+                method: 'POST',
+                data: $scope.sepet
+            }).then(function (response) {
+                console.log(response);
+                alert(response.data.message);
+                if (response.data.success) {
+                    $scope.toplam = 0;
+                    $scope.sepet = [];
+                }
+            });
+        }
         function sepethesapla() {
             $scope.toplam = 0;
             for (var i = 0; i < $scope.sepet.length; i++) {
