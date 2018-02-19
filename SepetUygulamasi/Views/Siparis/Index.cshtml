@@ -41,6 +41,10 @@
                     </tr>
                 </tbody>
             </table>
+            @for (int i = 1; i <= (int)ViewBag.toplam; i++)
+            {
+                <input type="button" value="@i" class="btn sayfa" ng-click="git(@i,$event)" />
+            }
         </div>
         <div class="col-sm-6">
             <div ng-if="sepet.length!=0">

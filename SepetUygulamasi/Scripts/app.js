@@ -3,7 +3,7 @@
 var app = angular.module("northApp", []);
 
 app.controller("SiparisCtrl",
-    function ($scope, $http) {
+    function ($scope, $http, $document) {
         $scope.urunler = null;
         $scope.sepet = [];
         $scope.toplam = 0;
@@ -22,8 +22,22 @@ app.controller("SiparisCtrl",
                 }
             });
         }
+        $scope.git = function (sayfa, event) {
 
-        $scope.sepeteekle = function (urun) {
+            console.log(event);
+            $http({
+                url: '../Siparis/Urunler?sayfa=' + sayfa,
+                method: 'GET'
+            }).then(function (response) {
+                console.log(response);
+                if (response.data.success)
+                    $scope.urunler = response.data.data;
+                else {
+                    alert(response.data.message);
+                }
+            });
+        }
+        $scope.function = function (urun) {
             console.log(urun);
             if ($scope.sepet.length === 0) {
                 urun.Quantity = 1;
