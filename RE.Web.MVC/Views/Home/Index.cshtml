@@ -1,0 +1,64 @@
+﻿@using RE.Web.MVC.Models
+
+@{
+    ViewBag.Title = "Ana Sayfa";
+}
+
+<h2>Index</h2>
+<div id="piechart" style="width: 900px; height: 500px;"></div>
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+@section script
+{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        $.ajax({
+            url: '@Url.Action("GrafikData1","Home")',
+            method: 'GET'
+        }).then(function(response) {
+            google.charts.load('current', { 'packages': ['corechart', 'gauge'] });
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var data1 = [['Kategori Adı', 'Adet']];
+                $.each(response,
+                    function(key, value) {
+                        data1.push([value.Ad, value.Adet]);
+                    });
+                var data = google.visualization.arrayToDataTable(data1);
+                var options = {
+                    title: 'Site Rapor',
+                    is3D: true,
+                    pieSliceText: 'label'
+                };
+                var data2 = google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Stok', 80],
+                    ['Siparis', 55]
+                ]);
+
+                var options2 = {
+                    width: 600, height: 300,
+                    redFrom: 0, redTo: 10,
+                    yellowFrom: 10, yellowTo: 25,
+                    greenFrom:25,greenTo:90,
+                    minorTicks: 5, max: 220,  animation:{
+                        duration: 1700,
+                        easing: 'out'
+                    }
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+
+                var chart2 = new google.visualization.Gauge(document.getElementById('chart_div'));
+                chart2.draw(data2, options2);
+                setInterval(function() {
+                    data2.setValue(0, 1, 40 + Math.round(170 * Math.random()));
+                    chart2.draw(data2, options2);
+                }, 2200);
+            }
+        });
+
+    </script>
+}
