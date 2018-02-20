@@ -35,7 +35,7 @@ namespace RE.BLL.Repository
                 throw ex;
             }
         }
-        public virtual T GetById(TId id)
+        public virtual T GetById(params TId[]  id)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace RE.BLL.Repository
                 throw ex;
             }
         }
-        public virtual async Task<T> GetByIdAsync(TId id)
+        public virtual async Task<T> GetByIdAsync(params TId[] id)
         {
             try
             {
