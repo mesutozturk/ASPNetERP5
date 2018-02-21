@@ -1,10 +1,10 @@
+using System.Web;
+
 namespace RE.Models.Entities
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class Product
     {
@@ -18,6 +18,7 @@ namespace RE.Models.Entities
 
         [Required]
         [StringLength(40)]
+        [Display(Name = "Ürün Adý")]
         public string ProductName { get; set; }
 
         public int? SupplierID { get; set; }
@@ -26,7 +27,7 @@ namespace RE.Models.Entities
 
         [StringLength(20)]
         public string QuantityPerUnit { get; set; }
-
+        [Display(Name = "Fiyat")]
         [Column(TypeName = "money")]
         public decimal? UnitPrice { get; set; }
 
@@ -37,7 +38,12 @@ namespace RE.Models.Entities
         public short? ReorderLevel { get; set; }
 
         public bool Discontinued { get; set; }
+        [Display(Name = "Fotoðraf")]
+        public string FotoUrl { get; set; }
 
+        [NotMapped]
+        public HttpPostedFileBase Foto { get; set; }
+        
         public virtual Category Category { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

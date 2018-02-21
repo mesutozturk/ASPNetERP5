@@ -1,0 +1,72 @@
+﻿@model List<RE.Models.Entities.Product>
+@{
+    ViewBag.Title = "Ürünler";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jqc-1.12.3/dt-1.10.16/af-2.2.2/b-1.5.1/cr-1.4.1/fc-3.2.4/fh-3.1.3/r-2.2.1/sc-1.4.4/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jqc-1.12.3/dt-1.10.16/af-2.2.2/b-1.5.1/cr-1.4.1/fc-3.2.4/fh-3.1.3/r-2.2.1/sc-1.4.4/datatables.min.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="datatable" class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Kategorisi</th>
+                    <th>Ürün Adı</th>
+                    <th>Fiyat</th>
+                    <th>Stok</th>
+                    <th>Durum</th>
+                    <th>Düzen</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int sayac = 0;}
+                @foreach (var item in Model)
+                {
+                    sayac++;
+                    <tr>
+                        <th>@sayac</th>
+                        <td>@item.Category.CategoryName</td>
+                        <td>@item.ProductName</td>
+                        <td>@( $"{item.UnitPrice:c2}")</td>
+                        <td>@item.UnitsInStock</td>
+                        <td>
+                            @Html.Raw(item.Discontinued ? "<span class='text-danger'>Satışta değil</span>" : "<span class='text-success'>Satışta</span>")
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit","Product",new {id=item.ProductID})" class="btn btn-block btn-info">Düzenle</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section script
+{
+    <script>
+        $(document).ready(function() {
+            $("#datatable").DataTable({
+                responsive: true,
+                language: {
+                    "lengthMenu": "Bir sayfada _MENU_ Kayıt Görüntüle",
+                    "zeroRecords": "Aradığınız kriterde kayıt bulunamadı...",
+                    "info": "Gösterilen Sayfa _PAGE_ / _PAGES_",
+                    "infoEmpty": "Kayıt Bulunmamaktadır",
+                    "infoFiltered": "(Toplam _MAX_ kayıt aranıyor)",
+                    "search": "Arama",
+                    "Previous": "Önceki",
+                    "Next": "Sonraki",
+                    "paginate": {
+                        "first": "ilk",
+                        "last": "son",
+                        "next": "Sonraki",
+                        "previous": "Önceki"
+                    }
+                }
+            });
+        });
+    </script>
+}
