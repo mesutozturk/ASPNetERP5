@@ -27,8 +27,9 @@ namespace RE.Web.MVC.Controllers
             return View(kategori);
         }
 
-        [HttpPost]
+        [HttpPost,ValidateInput(false)]
         [ValidateAntiForgeryToken]
+
         public async Task<ActionResult> Edit(Category model)
         {
             if (!ModelState.IsValid)
@@ -47,7 +48,7 @@ namespace RE.Web.MVC.Controllers
                 kategori.CategoryName = model.CategoryName;
                 kategori.Description = model.Description;
                 await new CategoryRepo().UpdateAsync();
-                return RedirectToAction("Edit", "Category", new {kategori.CategoryID});
+                return RedirectToAction("Edit", "Category", new {id=kategori.CategoryID});
             }
             catch (Exception ex)
             {

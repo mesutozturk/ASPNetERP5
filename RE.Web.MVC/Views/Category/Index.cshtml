@@ -22,7 +22,7 @@
                     <tr>
                         <th>@sayac</th>
                         <td>@item.CategoryName</td>
-                        <td>@item.Description</td>
+                        <td>@Html.Raw(item.Description)</td>
                         <td>
                             <a href="@Url.Action("Edit", "Category", new {id = item.CategoryID})" class="btn btn-info btn-block">Düzenle</a>
                         </td>

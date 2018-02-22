@@ -63,9 +63,9 @@ namespace RE.Web.MVC.Controllers
                     if (!Directory.Exists(directoryPath))
                         Directory.CreateDirectory(directoryPath);
                     dosya.SaveAs(filePath);
-                    WebImage img = new WebImage(filePath);
+                    var img = new WebImage(filePath);
                     img.Resize(800, 800, false);
-                    img.AddTextWatermark("Kuzey Ticaret", fontColor: "Tomato", fontSize: 18, fontFamily: "Verdana");
+                    img.AddTextWatermark("Kuzey Ticaret", fontColor: "Tomato", fontSize: 32, fontFamily: "Verdana");
                     img.Save(filePath);
                     if (!string.IsNullOrEmpty(urun.FotoUrl))
                         System.IO.File.Delete(Server.MapPath(urun.FotoUrl));
