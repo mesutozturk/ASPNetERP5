@@ -38,7 +38,6 @@ namespace Kimlik.Web.MVC.Controllers
                 ModelState.AddModelError("Email", "Bu e-posta adresi daha önceden alınmıştır.");
                 return View(model);
             }
-
             var user = new ApplicationUser
             {
                 Email = model.Email,
