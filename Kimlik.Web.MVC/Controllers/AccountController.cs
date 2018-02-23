@@ -24,6 +24,7 @@ namespace Kimlik.Web.MVC.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+
             var userManager = MembershipTools.NewUserManager();
             var checkUser = userManager.FindByName(model.UserName);
             if (checkUser != null)
