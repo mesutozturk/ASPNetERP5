@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Kimlik.BLL.Account;
+using Kimlik.BLL.Settings;
 using Kimlik.Models.IdentityModels;
 using Kimlik.Models.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -170,6 +171,53 @@ namespace Kimlik.Web.MVC.Controllers
                 ModelState.AddModelError("", $"Güncelleme işleminde bir hata oluştu {ex.Message}");
                 return View("Profile");
             }
+        }
+
+        public ActionResult RecoverPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RecoverPassword(RecoverPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+            var userStore = NewUserStore();
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            var user1 = await userManager.FindByEmailAsync(model.Email);
+            if (user1 == null)
+            {
+                ModelState.AddModelError("", "Lütfen geçerli bir email adresi giriniz");
+                return View(model);
+            }
+
+            var user2 = await userManager.FindByNameAsync(model.UserName);
+            if (user2 == null)
+            {
+                ModelState.AddModelError("", "Lütfen geçerli bir kullanıcı adı giriniz");
+                return View(model);
+            }
+
+            if (user1.Id != user2.Id)
+            {
+                ModelState.AddModelError("", "Girdiğiniz bilgiler geçerli değil");
+                return View(model);
+            }
+
+            var randomPass = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 6);
+            await userStore.SetPasswordHashAsync(user1, userManager.PasswordHasher.HashPassword(randomPass));
+            await userStore.Context.SaveChangesAsync();
+
+            await SiteSettings.SendMail(new MailModel()
+            {
+                To = user1.Email,
+                Subject = "Şifreniz Değişti",
+                Message = $"Merhaba {user1.Name} <br>Yeni Şifreniz: <b>{randomPass}</b>"
+            });
+            return RedirectToAction("Login", "Account");
         }
     }
 }
