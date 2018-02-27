@@ -1,4 +1,4 @@
-﻿using Kimlik.Models.Entites;
+﻿using Kimlik.Models.Entities;
 
 namespace Kimlik.BLL.Repository
 {

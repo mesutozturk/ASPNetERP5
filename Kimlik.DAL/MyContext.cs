@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Kimlik.Models.Entites;
+using Kimlik.Models.Entities;
 using Kimlik.Models.IdentityModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 

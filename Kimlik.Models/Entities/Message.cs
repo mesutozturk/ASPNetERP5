@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Kimlik.Models.IdentityModels;
 
-namespace Kimlik.Models.Entites
+namespace Kimlik.Models.Entities
 {
     [Table("Messages")]
     public class Message

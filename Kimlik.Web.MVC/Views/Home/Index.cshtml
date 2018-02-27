@@ -4,4 +4,11 @@
 }
 
 <h2>Index</h2>
-
+@if (HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <h3>Hoşgeldin @HttpContext.Current.GetOwinContext().Authentication.User.Identity.Name</h3>
+}
+@if (HttpContext.Current.GetOwinContext().Authentication.User.IsInRole("Admin"))
+{
+    <h4>Admin Paneli</h4>
+}

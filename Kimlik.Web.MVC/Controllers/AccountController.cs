@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Kimlik.BLL.Account;
 using Kimlik.Models.IdentityModels;
 using Kimlik.Models.ViewModels;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using static Kimlik.BLL.Account.MembershipTools;
 
 namespace Kimlik.Web.MVC.Controllers
 {
@@ -57,6 +60,36 @@ namespace Kimlik.Web.MVC.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var userManager = NewUserManager();
+            var user = await userManager.FindAsync(model.UserName, model.Password);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı");
+                return View();
+            }
+
+            var authManager = HttpContext.GetOwinContext().Authentication;
+            var userIdentity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            authManager.SignIn(new AuthenticationProperties()
+            {
+                IsPersistent = model.RememberMe
+            }, userIdentity);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Logout()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

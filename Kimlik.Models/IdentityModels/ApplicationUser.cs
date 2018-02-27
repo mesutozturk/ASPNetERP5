@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Kimlik.Models.Entites;
+using Kimlik.Models.Entities;
 
 namespace Kimlik.Models.IdentityModels
 {
