@@ -2,10 +2,11 @@
 
 namespace Kimlik.Web.MVC.Controllers
 {
+    [Authorize(Roles = "Admin,User")]
     public class HomeController : Controller
     {
         // GET: Home
-        //[Authorize]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
