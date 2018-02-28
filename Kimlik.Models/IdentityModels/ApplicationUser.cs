@@ -15,6 +15,7 @@ namespace Kimlik.Models.IdentityModels
         [StringLength(25)]
         public string Surname { get; set; }
         public DateTime RegisterDate { get; set; } = DateTime.Now;
+        public string ActivationCode { get; set; }
 
         public virtual List<Message> Messages { get; set; } = new List<Message>();
     }

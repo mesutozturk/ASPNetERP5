@@ -162,6 +162,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\RecoverPassword.cshtml" />
+    <Content Include="Views\Account\Activation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -181,6 +182,10 @@
     <ProjectReference Include="..\Kimlik.Models\Kimlik.Models.csproj">
       <Project>{af09ea5e-d46e-4ee9-8285-64d70c82c199}</Project>
       <Name>Kimlik.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RE.BLL\RE.BLL.csproj">
+      <Project>{6694723B-D687-421E-B0FF-0D47730164B5}</Project>
+      <Name>RE.BLL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

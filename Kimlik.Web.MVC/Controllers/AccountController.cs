@@ -23,13 +23,13 @@ namespace Kimlik.Web.MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
 
-            var userManager = MembershipTools.NewUserManager();
+            var userManager = NewUserManager();
             var checkUser = userManager.FindByName(model.UserName);
             if (checkUser != null)
             {
@@ -42,17 +42,31 @@ namespace Kimlik.Web.MVC.Controllers
                 ModelState.AddModelError("Email", "Bu e-posta adresi daha önceden alınmıştır.");
                 return View(model);
             }
+
+            var activitionCode = Guid.NewGuid().ToString().Replace("-", "");
             var user = new ApplicationUser
             {
                 Email = model.Email,
                 UserName = model.UserName,
                 Name = model.Name,
-                Surname = model.Surname
+                Surname = model.Surname,
+                ActivationCode = activitionCode
             };
             var result = userManager.Create(user, model.Password);
             if (result.Succeeded)
             {
-                userManager.AddToRole(user.Id, userManager.Users.Count() == 1 ? "Admin" : "User");
+                userManager.AddToRole(user.Id, userManager.Users.Count() == 1 ? "Admin" : "Passive");
+
+                var siteUrl = Request.Url?.Scheme + Uri.SchemeDelimiter + Request.Url?.Host +
+                              (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+
+                if (userManager.Users.Count() > 1)
+                    await SiteSettings.SendMail(new MailModel()
+                    {
+                        To = user.Email,
+                        Subject = "Kimlik Projesi - Aktivasyon",
+                        Message = $"Merhaba {user.Name} {user.Surname} <br/>Hesabınızı aktifleştirmek için <b><a href='{siteUrl}/Account/Activation?code={activitionCode}&u={user.Id}'>Aktivasyon Kodu</a> tıklayınız.<b>"
+                    });
                 return RedirectToAction("Login", "Account");
             }
             ModelState.AddModelError("", "Kullanıcı kayıt işleminde bir hata oluştu");
@@ -218,6 +232,49 @@ namespace Kimlik.Web.MVC.Controllers
                 Message = $"Merhaba {user1.Name} <br>Yeni Şifreniz: <b>{randomPass}</b>"
             });
             return RedirectToAction("Login", "Account");
+        }
+
+        public async Task<ActionResult> Activation(string code, string u)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(u))
+                    return RedirectToAction("Index", "Home");
+                var userStore = NewUserStore();
+                var sonuc = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.Id == u && x.ActivationCode == code);
+                if (sonuc == null)
+                {
+                    ViewBag.sonuc = "<span class='text-danger'>Aktivasyon işlemi başarısız</span>";
+                    return View();
+                }
+
+                if (sonuc.EmailConfirmed)
+                {
+                    ViewBag.sonuc = "<span class='text-warning'>E-Posta adesiniz zaten onaylı</span>";
+                    return View();
+                }
+
+                sonuc.EmailConfirmed = true;
+                await userStore.UpdateAsync(sonuc);
+                await userStore.Context.SaveChangesAsync();
+
+                var userManager = NewUserManager();
+                await userManager.RemoveFromRoleAsync(sonuc.Id, "Passive");
+                await userManager.AddToRoleAsync(sonuc.Id, "User");
+                ViewBag.sonuc = $"<span class='text-success'>Hoşgeldiniz, {sonuc.Name} {sonuc.Surname} <br/> Aktivasyon işleminiz başarılı</span>";
+                await SiteSettings.SendMail(new MailModel()
+                {
+                    To = sonuc.Email,
+                    Message = ViewBag.sonuc.ToString(),
+                    Subject = "Kimlik - Aktivasyon"
+                });
+                return View();
+            }
+            catch
+            {
+                ViewBag.sonuc = "<span class='text-danger'>Aktivasyon işlemi başarısız</span>";
+                return View();
+            }
         }
     }
 }
